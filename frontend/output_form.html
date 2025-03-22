@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Output Form Registrasi</title>
+    <link rel="stylesheet" href="output_form.css">
+</head>
+
+<body>
+    <div class="container">
+        <h2>Selamat Anda Sudah Berhasil Registrasi</h2>
+        <h3>Kode Registrasi Anda Adalah :</h3>
+        <h1>DDMMYYMQ64</h1>
+        <div class="output">
+            <p><strong>Nama Lengkap :</strong> <span id="outputnama"></span></p>
+            <p><strong>Kota Asal :</strong> <span id="outputkota"></span></p>
+            <p><strong>Nomor Handphone :</strong> <span id="outputhandphone"></span></p>
+            <p><strong>Jumlah Tamu :</strong> <span id="outputtamu"></span></p>
+            <p><strong>Hubungan Mempelai :</strong> <span id="outputhubungan"></span></p>
+        </div>
+    </div>
+
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        document.getElementById('outputnama').textContent = params.get('nama');
+        document.getElementById('outputkota').textContent = params.get('kota');
+        document.getElementById('outputhandphone').textContent = params.get('handphone');
+        document.getElementById('outputtamu').textContent = params.get('tamu');
+        document.getElementById('outputhubungan').textContent = params.get('hubungan');
+    </script> 
+
+</body>
+</html>

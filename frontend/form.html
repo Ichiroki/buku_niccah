@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Registrasi</title>
+    <link rel="stylesheet" href="css_form.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Form Registrasi</h2>
+        <form id="registerForm">
+            <label for="nama">Nama Lengkap</label>
+            <input type="text" value="" id="nama" name="nama" placeholder="Masukkan nama lengkap Anda" required>
+
+            <label for="kota">Kota Asal</label>
+            <input type="kota" id="kota" name="kota" placeholder="Masukkan kota asal Anda" required>
+
+            <label for="handphone">Nomor Handphone</label>
+            <input type="handphone" id="handphone" name="handphone" placeholder="Masukkan nomor handphone Anda" required>
+
+            <label for="tamu">Jumlah Tamu</label>
+            <input type="tamu" id="tamu" name="tamu" placeholder="Masukkan jumlah tamu" required>
+
+            <label for="hubungan">Hubungan Mempelai</label>
+            <select id="hubungan" name="hubungan" required>
+            <option value="" disabled selected>Pilih hubungan dengan mempelai</option>
+            <option value="Keluarga Mempelai Pria">Keluarga Mempelai Pria</option>
+            <option value="Keluarga Mempelai Wanita">Keluarga Mempelai Wanita</option>
+            <option value="Kerabat Mempelai Pria">Kerabat Mempelai Pria</option>
+            <option value="Kerabat Mempelai Wanita">Kerabat Mempelai Wanita</option>
+            <option value="Kerabat Orang Tua Mempelai Pria">Kerabat Orang Tua Mempelai Pria</option>
+            <option value="Kerabat Orang Tua Mempelai Wanita">Kerabat Orang Tua Mempelai Wanita</option>
+            </select>
+
+            <button type="submit" id="submit">Daftar</button>
+        </form>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+        <p>&copy; MotionLink Nexus Technology</p>
+        </div>
+    </footer>
+    
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="js/form.js"></script>
+    
+</body>
+</html>
