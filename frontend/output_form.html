@@ -11,7 +11,7 @@
     <div class="container">
         <h2>Selamat Anda Sudah Berhasil Registrasi</h2>
         <h3>Kode Registrasi Anda Adalah :</h3>
-        <h1>DDMMYYMQ64</h1>
+        <h1 id="outputID"></h1>
         <div class="output">
             <p><strong>Nama Lengkap :</strong> <span id="outputnama"></span></p>
             <p><strong>Kota Asal :</strong> <span id="outputkota"></span></p>
@@ -19,16 +19,11 @@
             <p><strong>Jumlah Tamu :</strong> <span id="outputtamu"></span></p>
             <p><strong>Hubungan Mempelai :</strong> <span id="outputhubungan"></span></p>
         </div>
+        <div id="download-div">
+        </div>
     </div>
 
-    <script>
-        const params = new URLSearchParams(window.location.search);
-        document.getElementById('outputnama').textContent = params.get('nama');
-        document.getElementById('outputkota').textContent = params.get('kota');
-        document.getElementById('outputhandphone').textContent = params.get('handphone');
-        document.getElementById('outputtamu').textContent = params.get('tamu');
-        document.getElementById('outputhubungan').textContent = params.get('hubungan');
-    </script> 
-
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="js/form.js"></script>
 </body>
 </html>
