@@ -1,38 +1,53 @@
-* {
-    text-decoration: none;
+@import url('https://fonts.googleapis.com/css2?family=Felipa&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Didact+Gothic&display=swap');
+
+:root {
+    --slate-100: oklch(0.929 0.013 255.508);
+    --slate-500: oklch(0.446 0.043 257.281);
+    --font-felipa: "Felipa", serif;
+    --font-didact: "Didact Gothic", sans-serif;
+    --fw-400: 400;
 }
 
 body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background: linear-gradient(to bottom, #1e293b, #334155);
-    color: #fff;
+    background: url('../assets/images/mio-ito-B_SLtmXPKNA-unsplash.png');
+    background-repeat: no-repeat;
+    background-clip: border-box;
+    background-size: cover;
+    background-position: center center;
 }
 
 .container {
     width: 450px;
-    /* height: 550px;    */
     margin: 50px auto;
     padding: 20px;
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.5);
     border-radius: 12px;
     box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
     backdrop-filter: blur(10px);
-    text-align: center;
     transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-}
 
-.container:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    &:hover {
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    }
 }
 
 h2 {
-    color: #38bdf8;
-    font-size: 2rem;    
+    font-family: var(--font-felipa);
+    font-weight: var(--fw-400);
+    font-style: normal;
+    text-align: center;
+    color: var(--slate-500);
+    font-size: 2rem;
     text-transform: uppercase;
-    margin-bottom: 20px;
+    margin: 1.3rem 0;
+}
+
+h1, h3 {
+    text-align: center;
+    font-family: var(--font-didact);
+    font-size: 24px;
+    margin: .75rem 0;
 }
 
 .output p {
@@ -41,36 +56,62 @@ h2 {
     border-radius: 8px;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
     margin: 15px 0;
-    color: #fff;
-    font-size: 14px;
+    color: var(--slate-500);
+    font-size: 16px;
     text-align: left;
+    font-family: var(--font-didact);
 }
 
-button,
 .download {
-    display: block;
-    margin-top: 20px;
+    margin: 1.3rem 0;
     padding: 10px;
-    background: linear-gradient(90deg, #14b8a6, #06b6d4);
-    color: white;
-    border: none;
-    border-radius: 8px;
+
+    overflow: hidden;
+
     font-size: 16px;
     font-weight: bold;
+    font-family: var(--font-didact);
+    border-radius: 8px;
+    
     cursor: pointer;
-    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-    box-shadow: 0 0 8px rgba(20, 184, 166, 0.6);
-}
+    transition: box-shadow 0.3s ease-in-out;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    color: var(--slate-500);
 
-.download {
-    margin: 1rem 0;
-}
+    display: block;
+    width: 96%;
 
-button:hover,
-.download:hover {
-    transform: scale(1.1);
-    box-shadow: 0 0 16px rgba(6, 182, 212, 0.8);
-}
+    span {
+        z-index: 9999;
+        position: relative;
+        color: var(--slate-500);
+    }
+
+    &::before {
+        content: '';
+        background-color: transparent;
+        top: 0;
+        position: absolute;
+        bottom: 0;
+        border-radius: 8px;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        background: linear-gradient(90deg, #14b8a6, #06b6d4);
+        transition: .3s ease-out;
+    }
+
+    &:hover::before {
+        width: 0%;
+    }
+
+    &:hover {
+        box-shadow: 0 0 0 5px #38bdf8;
+    }
+}    
+
 
 @media (max-width: 480px) {
     .container {

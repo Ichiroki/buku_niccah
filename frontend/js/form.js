@@ -49,13 +49,19 @@ $(document).ready(async () => {
     
         const blob = await response.blob()
         const url = window.URL.createObjectURL(blob)
-    
+
+        const downloadDiv = document.createElement('div')
         const download = document.createElement('a')
-        download.innerHTML = "Download Undangan"
+        const downloadText = document.createElement('span')
+
+        downloadText.innerHTML = "Download Undangan"
         download.classList.add('download')
         download.href = url
         download.download = "undangan.pdf"
+        download.appendChild(downloadText)
         downloadDiv.appendChild(download)
+        
+        document.querySelector('.container').appendChild(downloadDiv)
     
         download.addEventListener('click', function() {
             setTimeout(() => {
