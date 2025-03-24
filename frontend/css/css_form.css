@@ -1,0 +1,173 @@
+@import url('https://fonts.googleapis.com/css2?family=Felipa&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Didact+Gothic&display=swap');
+
+:root {
+    --slate-100: oklch(0.929 0.013 255.508);
+    --slate-500: oklch(0.446 0.043 257.281);
+    --font-felipa: "Felipa", serif;
+    --font-didact: "Didact Gothic", sans-serif;
+    --fw-400: 400;
+}
+
+body {
+    background: url('../assets/images/mio-ito-B_SLtmXPKNA-unsplash.png');
+    background-repeat: no-repeat;
+    background-clip: border-box;
+    background-size: cover;
+    background-position: center center;
+}
+
+.container {
+    width: 450px;
+    margin: 50px auto;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 12px;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(10px);
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+
+    &:hover {
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    }
+}
+
+h2 {
+    font-family: var(--font-felipa);
+    font-weight: var(--fw-400);
+    font-style: normal;
+    text-align: center;
+    color: var(--slate-500);
+    font-size: 2rem;
+    text-transform: uppercase;
+    margin: 1.3rem 0;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+
+    label {
+        margin: 5px 0;
+        color: var(--slate-500);
+        font-weight: bold;
+        font-family: var(--font-didact);
+    }
+
+    
+    input, select {
+        margin: 5px 0;
+        padding: 10px;
+        border: 1px solid #94a3b8;
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.1);
+        color: var(--slate-500);
+        font-size: 14px;
+        transition: box-shadow 0.3s ease-in-out;
+    }
+    
+    input:focus, 
+    select:focus {
+        box-shadow: 0px 0px 0px 3px #38bdf8;
+        outline: none;
+    }
+
+    input::placeholder {
+        color: #94a3b8;
+        opacity: 1;
+        font-style: italic;
+    }
+    
+    select {
+        color: var(--slate-500);
+
+        option {
+            color: #000;
+            background: #fff;
+        }
+    }
+
+    button {
+        margin: 1.3rem 0;
+        padding: 10px;
+        overflow: hidden;
+        border: none;
+        border-radius: 8px;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: box-shadow 0.3s ease-in-out;
+        position: relative;
+    
+        span {
+            z-index: 9999;
+            position: relative;
+            color: var(--slate-500);
+        }
+
+        &::before {
+            content: '';
+            background-color: transparent;
+            top: 0; 
+            bottom: 0; 
+            left: 0;
+            height: 100%;
+            width: 100%;
+            background: linear-gradient(90deg, #14b8a6, #06b6d4);
+            transition: .3s ease-out;
+            position: absolute;
+        }
+
+        &:hover::before {
+            width: 0%;
+        }
+
+        &:hover {
+            box-shadow: 0 0 0 5px #38bdf8;
+        }
+    }    
+}
+
+footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #1e293b;
+    color: #fff;
+    text-align: center;
+    padding: 20px;
+    border-top: 2px solid #334155;
+
+    .footer-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        p {
+            font-size: 14px;
+            margin: 0;
+        }
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        width: 90%;
+        padding: 15px;
+    }
+
+    input, select, button {
+        font-size: 14px;
+        padding: 8px;
+    }
+
+    h2 {
+        font-size: 20px;
+    }
+}
+
+@media (min-width: 1024px) {
+    .container {
+        width: 500px;
+    }
+}
