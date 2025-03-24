@@ -1,25 +1,22 @@
 // Buat generate character random
-function randChar(length) {
-    const chars = '1234567890ABCDEFGHIJKLMNOPQRSTUVXYZ'
-    let res = ""
+const lastCharOfName = (name) => {
+    let left = 0; right = name.length - 1
+    return [name[left], name[right]].join('').toUpperCase()
+}
 
-    for(let i = 0; i < length; i++) {
-        res += chars.charAt(Math.floor(Math.random() * chars.length))
-    }
-
-    return res
+const lastCharOfPhone = (phone) => {
+    let right = phone.length - 1
+    return [phone[right - 1], phone[right]].join('')
 }
 
 $(document).ready(async () => {    
     const params = new URLSearchParams(window.location.search)
-    const id = randChar(10)
     const nama = params.get('nama')
     const kota = params.get('kota')
     const handphone = params.get('handphone')
     const tamu = params.get('tamu')
     const hubungan = params.get('hubungan')
-
-    const downloadDiv = document.getElementById('download-div')
+    const id = `DDMMYY${lastCharOfName(nama)}` + `${lastCharOfPhone(handphone)}`
 
     document.getElementById('outputID').textContent = id
     document.getElementById('outputnama').textContent = nama
@@ -29,7 +26,6 @@ $(document).ready(async () => {
     document.getElementById('outputhubungan').textContent = hubungan
 
     try {
-        
         const response = await fetch('http://localhost:3000/generate-pdf', {
             method: "POST",
             headers: {

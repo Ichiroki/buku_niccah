@@ -28,7 +28,7 @@ Api.post('/generate-pdf', (req: Request, res: Response) => {
 
     doc
         .fontSize(14)
-        .text("Pengundang yang beridentitas dibawah ini:", { align: "center" })
+        .text("Tamu Undangan Yang Beridentitas di Bawah ini :", { align: "center" })
         .moveDown()
 
     doc.fontSize(12)
@@ -56,7 +56,7 @@ Api.post('/generate-pdf', (req: Request, res: Response) => {
     doc.text(`${user.hubungan}`, 210, 250)
 
     doc.fontSize(14)
-    .text("Berhasil melakukan pendaftaran sebagai tamu undangan", 100, 300, {align: 'center'})
+    .text("Berhasil Melakukan Pendaftaran", 100, 300, {align: 'center'})
 
     doc.pipe(res)
 
