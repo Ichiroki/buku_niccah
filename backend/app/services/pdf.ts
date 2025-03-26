@@ -1,7 +1,8 @@
-import PDFDocument from 'pdfkit'
+import PDFDocument from 'pdfkit-table'
 import { Response } from 'express'
 
 interface userType {
+    id: string
     nama: string
     kota: string
     handphone: number
@@ -9,32 +10,59 @@ interface userType {
     hubungan: string
 }
 
-export function createPDF(user: userType, res: Response) {
-    const doc = new PDFDocument()
-    const randNumb = Array.from({length: 6}, () => Math.floor(Math.random() * 10)).map((num) => String(num)).join('')
+function createPDF(user: userType, res: Response) {
+    const doc = new PDFDocument({
+        lang: 'id_ID',
+        size: 'A5',
+        layout: 'landscape'
+    })
 
-    const fileName = res.setHeader('Content-Disposition', `attachment; filename=MLN-${randNumb}-${user.handphone}.pdf`)
-    res.setHeader('Content-Type', `application/pdf`)
-    
+    const pageWidth = doc.page.width
+    const pageHeight = doc.page.height
+
+    doc.rect(0, 0, pageWidth, pageHeight).fill('#f1f5f9')
+    doc.lineWidth(5).rect(10, 10, pageWidth - 20, pageHeight - 20).stroke('#94a3b8')
+
+    doc.fillColor('#000')
+        .fontSize(16)
+        .text("Undangan Tamu", {align: 'center'})
+        .moveDown()
+
+    doc
+        .fontSize(14)
+        .text("Tamu Undangan Yang Beridentitas di Bawah ini :", { align: "center" })
+        .moveDown()
+
+    doc.fontSize(12)
+    doc.text('ID', 100, 150)
+    doc.text('Nama', 100, 170)
+    doc.text('Kota', 100, 190)
+    doc.text('Handphone', 100, 210)
+    doc.text('Tamu', 100, 230)
+    doc.text('Hubungan', 100, 250)
+
+    doc.fontSize(12)
+    doc.text(':', 200, 150)
+    doc.text(':', 200, 170)
+    doc.text(':', 200, 190)
+    doc.text(':', 200, 210)
+    doc.text(':', 200, 230)
+    doc.text(':', 200, 250)
+
+    doc.fontSize(12)
+    doc.text(`${user.id}`, 210, 150)
+    doc.text(`${user.nama}`, 210, 170)
+    doc.text(`${user.kota}`, 210, 190)
+    doc.text(`${user.handphone}`, 210, 210)
+    doc.text(`${user.tamu}`, 210, 230)
+    doc.text(`${user.hubungan}`, 210, 250)
+
+    doc.fontSize(14)
+    .text("Berhasil Melakukan Pendaftaran", 100, 300, {align: 'center'})
+
     doc.pipe(res)
 
-    doc.fontSize(16).text('Pengundang yang beridentitas dibawah ini: ', { align: 'center' }).moveDown()
-    
-    doc
-    .text(`Nomor Tamu              : ${'MLN-' + randNumb}`)
-    .text(`Nama                    : ${user.nama}`)
-    .text(`Kota Asal               : ${user.kota}`)
-    .text(`Nomor Telepon           : ${user.handphone}`)
-    .text(`Jumlah Tamu             : ${user.tamu}`)
-    .text(`Hubungan dengan Mempelai: ${user.hubungan}`)
-    .moveDown(2)
-
-    doc.fontSize(16).text('Berhasil melakukan pendaftaran sebagai tamu undangan', {align: 'center'})
-
     doc.end()
-
-    return {
-        document: doc,
-        fileName
-    }
 }
+
+export default createPDF
