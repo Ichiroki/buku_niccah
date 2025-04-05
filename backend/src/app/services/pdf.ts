@@ -23,14 +23,11 @@ function createPDF(user: userType, res: Response) {
     doc.rect(0, 0, pageWidth, pageHeight).fill('#f1f5f9')
     doc.lineWidth(5).rect(10, 10, pageWidth - 20, pageHeight - 20).stroke('#94a3b8')
 
+    doc.font('Times-Roman')
+
     doc.fillColor('#000')
         .fontSize(16)
-        .text("Undangan Tamu", {align: 'center'})
-        .moveDown()
-
-    doc
-        .fontSize(14)
-        .text("Tamu Undangan Yang Beridentitas di Bawah ini :", { align: "center" })
+        .text("TAMU UNDANGAN YANG BERIDENTITAS DI BAWAH INI :", {align: 'center'})
         .moveDown()
 
     doc.fontSize(12)
@@ -57,8 +54,8 @@ function createPDF(user: userType, res: Response) {
     doc.text(`${user.tamu}`, 210, 230)
     doc.text(`${user.hubungan}`, 210, 250)
 
-    doc.fontSize(14)
-    .text("Berhasil Melakukan Pendaftaran", 100, 300, {align: 'center'})
+    doc.fontSize(16)
+    .text("BERHASIL MELAKUKAN REGISTRASI", 100, 300, {align: 'center'})
 
     doc.pipe(res)
 
