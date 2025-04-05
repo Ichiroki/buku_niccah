@@ -4,7 +4,7 @@ import fs from 'fs'
 import * as XLSX from 'xlsx'
 
 export const CheckUser = (req: Request, res: Response) => {
-    const filePath = path.join("./.backup/user_data.xlsx");
+    const filePath = path.join("./.backup/data_tamu.xlsx");
 
     // Cek apakah file ada
     if (!fs.existsSync(filePath)) {
