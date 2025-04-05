@@ -14,21 +14,23 @@ function createPDF(user: userType, res: Response) {
     const doc = new PDFDocument({
         lang: 'id_ID',
         size: 'A5',
-        layout: 'landscape'
     })
 
     const pageWidth = doc.page.width
     const pageHeight = doc.page.height
 
+    doc.font("Times-Roman")
     doc.rect(0, 0, pageWidth, pageHeight).fill('#f1f5f9')
     doc.lineWidth(5).rect(10, 10, pageWidth - 20, pageHeight - 20).stroke('#94a3b8')
 
-    doc.font('Times-Roman')
+    doc.fillColor('#000')
+        .fontSize(16)
+        .text("Undangan Tamu", {align: 'center'})
+        .moveDown()
 
     doc.fillColor('#000')
         .fontSize(16)
         .text("TAMU UNDANGAN YANG BERIDENTITAS DI BAWAH INI :", {align: 'center'})
-        .moveDown()
 
     doc.fontSize(12)
     doc.text('ID', 100, 150)

@@ -1,70 +1,66 @@
-// Buat generate character random
-const lastCharOfName = (name) => {
-    let left = 0; right = name.length - 1
-    return [name[left], name[right]].join('').toUpperCase()
-}
+const { z } = window.Zod
 
-const lastCharOfPhone = (phone) => {
-    let right = phone.length - 1
-    return [phone[right - 1], phone[right]].join('')
-}
 
-$(document).ready(async () => {    
-    const params = new URLSearchParams(window.location.search)
-    const nama = params.get('nama')
-    const kota = params.get('kota')
-    const handphone = params.get('handphone')
-    const tamu = params.get('tamu')
-    const hubungan = params.get('hubungan')
-    const id = `DDMMYY${lastCharOfName(nama)}` + `${lastCharOfPhone(handphone)}`
+document.addEventListener("DOMContentLoaded", () => {
+    const form = document.getElementById("registerForm")
 
-    document.getElementById('outputID').textContent = id
-    document.getElementById('outputnama').textContent = nama
-    document.getElementById('outputkota').textContent = kota
-    document.getElementById('outputhandphone').textContent = handphone
-    document.getElementById('outputtamu').textContent = tamu
-    document.getElementById('outputhubungan').textContent = hubungan
-
-    try {
-        const response = await fetch('http://localhost:3000/generate-pdf', {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                id,
-                nama,
-                kota,
-                handphone,
-                tamu,
-                hubungan
-            })
-        })
+    const FormValidation = z.object({
+        nama: z.string({required_error: "Nama harus diisi",})
+        .min(8, "Karakter untuk nama minimal 8 huruf")
+        .regex(/\w/g, "Nama tidak boleh kosong")
+        .trim(),
+        kota: z.string({required_error: "Kota asal harus diisi"}),
+        handphone: z.string({required_error: "Nomor telepon harus diisi"})
+        .min(8, "Nomor telepon tidak boleh dibawah 8 angka")
+        .max(15, "Nomor telepon tidak boleh lebih dari 15 angka"),
+        tamu: z.number({required_error: "Jumlah tamu harus diisi"})
+        .positive("Tamu tidak boleh dibawah angka 1")
+        .lte(50, "Jumlah tamu tidak boleh banyak")
+        .finite("Jumlah tamu tidak boleh melebihi batas"),
+        hubungan: z.string({required_error: "Hubungan dengan mempelai harus diisi"})
+    })
     
-        if(!response.ok) throw new Error("Gagal membuat PDF")
-    
-        const blob = await response.blob()
-        const url = window.URL.createObjectURL(blob)
-
-        const downloadDiv = document.createElement('div')
-        const download = document.createElement('a')
-        const downloadText = document.createElement('span')
-
-        downloadText.innerHTML = "Download Undangan"
-        download.classList.add('download')
-        download.href = url
-        download.download = "undangan.pdf"
-        download.appendChild(downloadText)
-        downloadDiv.appendChild(download)
-        
-        document.querySelector('.container').appendChild(downloadDiv)
-    
-        download.addEventListener('click', function() {
-            setTimeout(() => {
-                window.URL.revokeObjectURL(url)
-            }, 2000)
-        })
-    } catch(e) {
-        console.error("Error:", e)
+    const showError = (inputId, message) => {
+        const errorElement = document.getElementById(inputId + "-error")
+        errorElement.textContent = message
+        errorElement.style.color = "red"
     }
+    
+    const clearError = (inputId) => {
+        const errorElement = document.getElementById(inputId + "-error")
+        errorElement.textContent = ""
+    }
+    
+    const handleSubmit = async (e) => {
+        e.preventDefault()
+    
+        const nama = document.getElementById("nama").value.trim()
+        const kota = document.getElementById("kota").value.trim()
+        const handphone = document.getElementById("handphone").value.trim()
+        const tamu = parseInt(document.getElementById("tamu").value.trim())
+        const hubungan = document.getElementById("hubungan").value.trim()
+    
+        const validationResult = FormValidation.safeParse({
+            nama,
+            kota,
+            handphone,
+            tamu,
+            hubungan
+        })
+    
+        if(!validationResult.success) {
+            validationResult.error.issues.forEach((issue) => {
+                const inputField = issue.path[0]
+                showError(inputField, issue.message)
+            })
+            return;
+        } else {
+            ["nama", "kota", "handphone", "tamu", "hubungan"].forEach(clearError)
+            form.action = "output_form.html"
+            form.submit()
+        }
+    }
+    
+    form.addEventListener("submit", handleSubmit) 
 })
+
